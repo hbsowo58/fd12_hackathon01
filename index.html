@@ -1,4 +1,12 @@
 <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
 <html lang=“en”>
 
 <head>
@@ -10,6 +18,92 @@
 
 <body>
 <script>
+    const city_inform = [
+        {name:'Seoul', price:1000},
+        {name:'Busan', price:1000},
+        {name:'Daejeon', price:1000},
+        {name:'Daegu', price:1000},
+        {name:'Gwangju', price:1000},
+        {name:'Ulsan', price:1000},
+        {name:'Jeju', price:1000},
+        {name:'Newyork', price:1000},
+        {name:'Chicago', price:1000},
+        {name:'Paris', price:1000},
+        {name:'Seoul', price:1000},
+        {name:'Seoul', price:1000},
+        {name:'Seoul', price:1000},
+        {name:'Seoul', price:1000},
+        {name:'Seoul', price:1000},
+        {name:'Seoul', price:1000}
+    ];
+     const player = {
+         position : 0,
+
+    };
+    const arr = new Array(16).fill(0);
+    arr.forEach(function (element, index, array) {
+            const div = document.createElement('div');
+            div.style.position = 'absolute';
+            div.style.width = '100px';
+            div.style.height = '100px';
+            div.style.backgroundColor = 'pink';
+            div.style.marginTop = '10px';
+            div.id = city_inform[index].name;
+            let nanu = Math.floor(index / 4);
+            player.nanu = nanu;
+            if(nanu < 1){
+              div.style.left = `${index * 140}px`;
+            }else if(nanu < 2){
+              div.style.left = `${4 * 140}px`;
+              div.style.top = `${(index-4) * 140}px`;
+            }else if(nanu < 3){
+                div.style.top = `${4 * 140}px`;
+                div.style.left = `${(4 - index % 8)* 140}px`;
+            }else{
+                div.style.top = `${(4 - index % 12) * 140}px`;
+                // div.style.left = `${(4 - index % 8)* 140}px`;
+            }
+
+            document.body.appendChild(div)
+        }
+    )
+
+    function player_move(moveNo){
+        let currPos = player.position;
+        let movePos = currPos + moveNo;
+        player.position = movePos;
+        deleteCurrentPos();
+        drawPlayer(movePos);
+
+    }
+
+    function drawPlayer(movePos){
+         const div = document.createElement('div');
+            div.style.position = 'absolute';
+            div.style.width = '10px';
+            div.style.height = '10px';
+            div.style.backgroundColor = 'blue';
+            div.style.marginTop = '10px';
+           const index = movePos;
+             let nanu = Math.floor(index / 4);
+            if(nanu < 1){
+              div.style.left = `${index * 140}px`;
+            }else if(nanu < 2){
+              div.style.left = `${4 * 140}px`;
+              div.style.top = `${(index-4) * 140}px`;
+            }else if(nanu < 3){
+                div.style.top = `${4 * 140}px`;
+                div.style.left = `${(4 - index % 8)* 140}px`;
+            }else{
+                div.style.top = `${(4 - index % 12) * 140}px`;
+                // div.style.left = `${(4 - index % 8)* 140}px`;
+            }
+            document.body.appendChild(div)
+           console.log(`${movePos}만큼 이동했습니다.`);
+    }
+
+
+
    const arr = new Array(16).fill(0);
    arr.forEach(function (element, index, array) {
            const div = document.createElement('div');
