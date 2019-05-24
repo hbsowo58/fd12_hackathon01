@@ -20,31 +20,33 @@
   <input type="button" class="dice_button" style="position:absolute">
 <script>
     const city_inform = [
-        {name:'Seoul', price:1000},
-        {name:'Busan', price:1000},
-        {name:'Daejeon', price:1000},
-        {name:'Daegu', price:1000},
-        {name:'Gwangju', price:1000},
-        {name:'Ulsan', price:1000},
-        {name:'Jeju', price:1000},
-        {name:'Newyork', price:1000},
-        {name:'Chicago', price:1000},
-        {name:'Paris', price:1000},
-        {name:'Seoul', price:1000},
-        {name:'Seoul', price:1000},
-        {name:'Seoul', price:1000},
-        {name:'Seoul', price:1000},
-        {name:'Seoul', price:1000},
-        {name:'Seoul', price:1000}
+        {name:'Seoul', price:1000, isOwned: 0, owner: ''},
+        {name:'Busan', price:1000, isOwned: 0, owner: ''},
+        {name:'Daejeon', price:1000, isOwned: 0, owner: ''},
+        {name:'Daegu', price:1000, isOwned: 0, owner: ''},
+        {name:'Gwangju', price:1000, isOwned: 0, owner: ''},
+        {name:'Ulsan', price:1000, isOwned: 0, owner: ''},
+        {name:'Jeju', price:1000, isOwned: 0, owner: ''},
+        {name:'Newyork', price:1000, isOwned: 0, owner: ''},
+        {name:'Chicago', price:1000, isOwned: 0, owner: ''},
+        {name:'Paris', price:1000, isOwned: 0, owner: ''},
+        {name:'Seoul', price:1000, isOwned: 0, owner: ''},
+        {name:'Seoul', price:1000, isOwned: 0, owner: ''},
+        {name:'Seoul', price:1000, isOwned: 0, owner: ''},
+        {name:'Seoul', price:1000, isOwned: 0, owner: ''},
+        {name:'Seoul', price:1000, isOwned: 0, owner: ''},
+        {name:'Seoul', price:1000, isOwned: 0, owner: ''}
     ];
      const player = {
       position:0 
     };
+
+
     const arr = new Array(16).fill(0);
     // const div = document.createElement('div').setAttribute('id', 'player1');
     // 페이지 로딩시 캐릭터 점찍기
     
-
+    // 시작시 플레이어 점 그리기
     function init_player() {
       console.log('hello world');
           const player_div = document.createElement('div');
@@ -56,7 +58,10 @@
           player_div.setAttribute('id', 'player1');
           document.body.appendChild(player_div);
     }
+    // 플레이어 점 그리기 웹페이지 로딩시 로딩하기
     window.onload = init_player;
+
+    // 시작 스테이지(게임판) 그리기
     arr.forEach(function (element, index, array) {
             const div = document.createElement('div');
             div.style.position = 'absolute';
@@ -84,15 +89,9 @@
             document.body.appendChild(div)
         }
     )
-    function player_move(moveNo) {
-        let currPos = player.position;
-        let movePos = (currPos + moveNo)<17?(currPos + moveNo):(currPos + moveNo)%16;
-        player.position = movePos;
-        // deleteCurrentPos();
-        drawPlayer(movePos);
-    }
 
-    function drawPlayer(movePos) {
+        // 이동하는 플레이어 그리기(css 변경)
+      function drawPlayer(movePos) {
       const div = document.getElementById('player1');
       player.position = movePos;
       
@@ -118,7 +117,26 @@
       }
       console.log(`${movePos}만큼 이동했습니다.`);
     }
+
+    // 플레이어 이동하기
+    function player_move(moveNo) {
+      let currPos = player.position;
+      let movePos = (currPos + moveNo) < 17? (currPos + moveNo):(currPos + moveNo) % 16;
+      player.position = movePos;
+      drawPlayer(movePos);
+      if(checkOwner(movePos>=16? 0 : movePos)){
+        city_inform[player.position].isOwned = 1;
+        city_inform[player.position].owner = 'player1';
+      }
+    }
+    function checkOwner(playerPosition) {
+      console.log(playerPosition+"::");
+      return city_inform[playerPosition].isOwned? 0 : 1;
+    }
+
     const input = document.querySelector('input[type=button]');
+
+    // 주사위 굴리기
     function dice() {
        console.log('다이스함수시작,');
        let randomNo = Math.floor(6 * Math.random()) + 1;
@@ -127,7 +145,7 @@
        player_move(randomNo);
        return ;
      }
-
+    //  주사위 버튼 리스너
      input.addEventListener('click', function () {
      console.log('다이스 시작함');
      dice();
