@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+<html lang=“en”>
+
+<head>
+   <meta charset="UTF-8">
+   <meta name=“viewport” content=“width=device-width, initial-scale=1.0">
+   <meta http-equiv=“X-UA-Compatible” content=“ie=edge”>
+   <title>Document</title>
+</head>
+
+<body>
+  <input type="button" class="dice_button" style="position:absolute">
+<script>
+    const city_inform = [
+        {name:'Seoul', price:1000},
+        {name:'Busan', price:1000},
+        {name:'Daejeon', price:1000},
+        {name:'Daegu', price:1000},
+        {name:'Gwangju', price:1000},
+        {name:'Ulsan', price:1000},
+        {name:'Jeju', price:1000},
+        {name:'Newyork', price:1000},
+        {name:'Chicago', price:1000},
+        {name:'Paris', price:1000},
+        {name:'Seoul', price:1000},
+        {name:'Seoul', price:1000},
+        {name:'Seoul', price:1000},
+        {name:'Seoul', price:1000},
+        {name:'Seoul', price:1000},
+        {name:'Seoul', price:1000}
+    ];
+     const player = {
+      position:0 
+    };
+    const arr = new Array(16).fill(0);
+    // const div = document.createElement('div').setAttribute('id', 'player1');
+    // 페이지 로딩시 캐릭터 점찍기
+    
+
+    function init_player() {
+      console.log('hello world');
+          const player_div = document.createElement('div');
+          player_div.style.position = 'absolute';
+          player_div.style.width = '50px';
+          player_div.style.height = '50px';
+          player_div.style.backgroundColor = 'black';
+          player_div.style.marginTop = '50px';
+          player_div.setAttribute('id', 'player1');
+          document.body.appendChild(player_div);
+    }
+    window.onload = init_player;
+    arr.forEach(function (element, index, array) {
+            const div = document.createElement('div');
+            div.style.position = 'absolute';
+            div.style.width = '100px';
+            div.style.height = '100px';
+            div.style.marginTop = '10px';
+            div.id = city_inform[index].name;
+            let nanu = Math.floor(index / 4);
+            player.nanu = nanu;
+            if(nanu < 1) {
+              div.style.left = `${index * 140}px`;
+              div.style.backgroundColor = 'red';
+            }else if(nanu < 2){
+              div.style.left = `${4 * 140}px`;
+              div.style.top = `${(index-4) * 140}px`;
+              div.style.backgroundColor = 'pink';
+            }else if(nanu < 3){
+                div.style.top = `${4 * 140}px`;
+                div.style.left = `${(4 - index % 8)* 140}px`;
+                div.style.backgroundColor = 'yellow';
+            }else{
+                div.style.top = `${(4 - index % 12) * 140}px`;
+                div.style.backgroundColor = 'blue';
+            }
+            document.body.appendChild(div)
+        }
+    )
+    function player_move(moveNo) {
+        let currPos = player.position;
+        let movePos = (currPos + moveNo)<17?(currPos + moveNo):(currPos + moveNo)%16;
+        player.position = movePos;
+        // deleteCurrentPos();
+        drawPlayer(movePos);
+    }
+
+    function drawPlayer(movePos) {
+      const div = document.getElementById('player1');
+      player.position = movePos;
+      
+      const index = movePos;
+      let nanu = Math.floor(index / 4);
+      if(nanu < 1){
+        div.style.top = `${0}px`;
+        div.style.left = `${index * 140}px`;
+        console.log(document.getElementById('player1').style.top);
+      }else if(nanu < 2){
+        div.style.left = `${4 * 140}px`;
+        div.style.top = `${(index-4) * 140}px`;
+        console.log(document.getElementById('player1').style.top);
+      }else if(nanu < 3){
+          div.style.top = `${4 * 140}px`;
+          div.style.left = `${(4 - index % 8)* 140}px`;
+          console.log(document.getElementById('player1').style.top);
+      }else {
+          console.log(index);
+          div.style.top = `${(4 - index % 12) * 140}px`;
+          div.style.left = `10px`;
+          console.log(document.getElementById('player1').style.top);
+      }
+      console.log(`${movePos}만큼 이동했습니다.`);
+    }
+    const input = document.querySelector('input[type=button]');
+    function dice() {
+       console.log('다이스함수시작,');
+       let randomNo = Math.floor(6 * Math.random()) + 1;
+       console.log('다이스함수 '+randomNo+'받아옴');
+       console.log('플레이어 무브함수 시작');
+       player_move(randomNo);
+       return ;
+     }
+
+     input.addEventListener('click', function () {
+     console.log('다이스 시작함');
+     dice();
+   });
+</script>
+</body>
+
+</html>
