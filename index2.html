@@ -14,41 +14,71 @@
    <meta name=“viewport” content=“width=device-width, initial-scale=1.0">
    <meta http-equiv=“X-UA-Compatible” content=“ie=edge”>
    <title>Document</title>
+   <style>
+     .game_main{
+       width: 1000px;
+       height: 1000px;
+       background-color: bisque;
+
+     }
+     .dice_button{
+       width: 100px;
+       height: 100px;
+       background-color: aquamarine;
+       position: absolute;
+       top: 50%;
+       left: 300px;
+     }
+     .confirm_box{
+       width: 300px;
+       height: 100px;
+       background-color: brown;
+       position: absolute;
+       top: 150px;
+       left: 150px;
+       display: none;
+     }
+   </style>
 </head>
 
 <body>
-  <input type="button" class="dice_button" style="position:absolute">
+  <div class='game_main'>
+    <div class ="confirm_box">
+      
+    </div>
+    <input type="button" class="dice_button" style="position:absolute">
+  </div>
+  
 <script>
     const city_inform = [
-        {name:'Seoul', price:1000, landType: 'middle', isOwned: 0, owner: ''},
-        {name:'Busan', price:1000,  landType: 'city',isOwned: 0, owner: ''},
-        {name:'Daejeon', price:1000,  landType: 'city',isOwned: 0, owner: ''},
-        {name:'Daegu', price:1000,  landType: 'city',isOwned: 0, owner: ''},
-        {name:'Gwangju', price:1000,  landType: 'middle',isOwned: 0, owner: ''},
-        {name:'Ulsan', price:1000,  landType: 'city',isOwned: 0, owner: ''},
-        {name:'Jeju', price:1000, landType: 'city', isOwned: 0, owner: ''},
-        {name:'Newyork', price:1000,  landType: 'city',isOwned: 0, owner: ''},
-        {name:'Chicago', price:1000,  landType: 'middle',isOwned: 0, owner: ''},
-        {name:'Paris', price:1000,  landType: 'city',isOwned: 0, owner: ''},
-        {name:'Seoul', price:1000,  landType: 'city',isOwned: 0, owner: ''},
-        {name:'Seoul', price:1000, landType: 'city', isOwned: 0, owner: ''},
-        {name:'Seoul', price:1000,  landType: 'middle',isOwned: 0, owner: ''},
-        {name:'Seoul', price:1000,  landType: 'city',isOwned: 0, owner: ''},
-        {name:'Seoul', price:1000,  landType: 'city',isOwned: 0, owner: ''},
-        {name:'Seoul', price:1000,  landType: 'city',isOwned: 0, owner: ''}
+        {name:'Seoul', price:1000, landType: 'middle', isOwned: 0, owner: '', price: ''},
+        {name:'Busan', price:1000,  landType: 'city',isOwned: 0, owner: '', price: 10000},
+        {name:'Daejeon', price:1000,  landType: 'city',isOwned: 0, owner: '', price: 10000},
+        {name:'Daegu', price:1000,  landType: 'city',isOwned: 0, owner: '', price: 10000},
+        {name:'Gwangju', price:1000,  landType: 'middle',isOwned: 0, owner: '', price: ''},
+        {name:'Ulsan', price:1000,  landType: 'city',isOwned: 0, owner: '', price: 10000},
+        {name:'Jeju', price:1000, landType: 'city', isOwned: 0, owner: '', price: 10000},
+        {name:'Newyork', price:1000,  landType: 'city',isOwned: 0, owner: '', price: 10000},
+        {name:'Chicago', price:1000,  landType: 'middle',isOwned: 0, owner: '', price: ''},
+        {name:'Paris', price:1000,  landType: 'city',isOwned: 0, owner: '', price: 10000},
+        {name:'Seoul', price:1000,  landType: 'city',isOwned: 0, owner: '', price: 10000},
+        {name:'Seoul', price:1000, landType: 'city', isOwned: 0, owner: '', price: 10000},
+        {name:'Seoul', price:1000,  landType: 'middle',isOwned: 0, owner: '', price: ''},
+        {name:'Seoul', price:1000,  landType: 'city',isOwned: 0, owner: '', price: 10000},
+        {name:'Seoul', price:1000,  landType: 'city',isOwned: 0, owner: '', price: 10000},
+        {name:'Seoul', price:1000,  landType: 'city',isOwned: 0, owner: '', price: 10000}
     ];
      const player = {
-      position:0 
+      position:0,
+      seedMoney: 5000000,
     };
-
 
     const arr = new Array(16).fill(0);
     // const div = document.createElement('div').setAttribute('id', 'player1');
     // 페이지 로딩시 캐릭터 점찍기
-    
+  
     // 시작시 플레이어 점 그리기
     function init_player() {
-
           const player_div = document.createElement('div');
           player_div.style.position = 'absolute';
           player_div.style.width = '50px';
@@ -56,7 +86,7 @@
           player_div.style.backgroundColor = 'black';
           player_div.style.marginTop = '50px';
           player_div.setAttribute('id', 'player1');
-          document.body.appendChild(player_div);
+          document.querySelector('div').appendChild(player_div);
     }
     // 플레이어 점 그리기 웹페이지 로딩시 로딩하기
     window.onload = init_player;
@@ -67,7 +97,7 @@
             div.style.position = 'absolute';
             div.style.width = '100px';
             div.style.height = '100px';
-            div.style.marginTop = '10px';
+            // div.style.marginTop = '10px';
             div.id = city_inform[index].name;
             let nanu = Math.floor(index / 4);
             player.nanu = nanu;
@@ -86,21 +116,17 @@
                 div.style.top = `${(4 - index % 12) * 140}px`;
                 div.style.backgroundColor = 'blue';
             }
-            document.body.appendChild(div)
+            document.querySelector('div').appendChild(div)
         }
     )
-
         // 이동하는 플레이어 그리기(css 변경)
       function drawPlayer(movePos) {
       const div = document.getElementById('player1');
-      player.position = movePos;
-      
       const index = movePos;
       let nanu = Math.floor(index / 4);
       if(nanu < 1){
         div.style.top = `${0}px`;
         div.style.left = `${index * 140}px`;
-     
       }else if(nanu < 2){
         div.style.left = `${4 * 140}px`;
         div.style.top = `${(index-4) * 140}px`;
@@ -108,61 +134,57 @@
       }else if(nanu < 3){
           div.style.top = `${4 * 140}px`;
           div.style.left = `${(4 - index % 8)* 140}px`;
-    
       }else {
-
           div.style.top = `${(4 - index % 12) * 140}px`;
           div.style.left = `10px`;
-         
       }
       console.log(`${movePos}만큼 이동했습니다.`);
     }
 
     // 플레이어 이동하기
+    const confirm_box = document.querySelector('div[class=confirm_box]');
     function player_move(moveNo) {
       let currPos = player.position;
-      let movePos = (currPos + moveNo) < 17? (currPos + moveNo) === 16? 0: (currPos + moveNo):(currPos + moveNo) % 16;
+      let movePos = (currPos + moveNo) < 17? (currPos + moveNo) === 16 ? 0: (currPos + moveNo):(currPos + moveNo) % 16;
       player.position = movePos;
       drawPlayer(movePos);
-      if(checkOwner(movePos)){
-        // 땅을 사는 함수
-        if(confirm("너 살거야?")){
-          // 산다고? 그러면
-        
-          buy_city(movePos);
-        } else{
-          // 안산대? 그러면
-          
-        }
-      }else{
-        // 돈을 내! 함수
-      }
+      document.querySelector('div[class=confirm_box]').style.display = 'block';
     }
     function checkOwner(playerPosition) {
       if(city_inform[playerPosition].landType === 'city') return city_inform[playerPosition].isOwned? 0 : 1;
     }
 
     function buy_city(movePos){
-      city_inform[player.position].isOwned = 1;
+        city_inform[player.position].isOwned = 1;
         city_inform[player.position].owner = 'player1';
+        player.seedMoney -= city_inform[player.position].price;
     }
 
-    const input = document.querySelector('input[type=button]');
-
     // 주사위 굴리기
+    const input = document.querySelector('input[type=button]');
     function dice() {
-       console.log('다이스함수시작,');
        let randomNo = Math.floor(6 * Math.random()) + 1;
-       console.log('다이스함수 '+randomNo+'받아옴');
-       console.log('플레이어 무브함수 시작');
        player_move(randomNo);
        return ;
      }
     //  주사위 버튼 리스너
-     input.addEventListener('click', function () {
-     console.log('다이스 시작함');
-     dice();
-   });
+    input.addEventListener('click', function () {
+      let randomNo = Math.floor(6 * Math.random()) + 1;
+       player_move(randomNo);
+       return 
+   },true);
+   
+   confirm_box.addEventListener('click',function(){
+    if(city_inform[player.position].landType !== 'middle'){
+    if(player.seedMoney >= city_inform[player.position].price){
+      console.log('땅을 구매함');
+      player.seedMoney -= city_inform[player.position].price;
+      city_inform[player.position].isOwned = 1;
+      city_inform[player.position].owner = player;
+      }
+    }
+  })
+    
 </script>
 </body>
 
