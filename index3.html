@@ -19,7 +19,7 @@
        width: 1000px;
        height: 1000px;
        background-color: bisque;
-       background-image: URL(https://github.com/caoyanxiong/mymarble/blob/master/img/bg_board.png?raw=true);
+       background-image: URL(https://github.com/caoyanxiong/mymarble/blob/master/img/bg_stage.png?raw=true);
        background-repeat: no-repeat;
      }
      .dice_button{
@@ -85,6 +85,7 @@
           player_div.style.width = '50px';
           player_div.style.height = '50px';
           player_div.style.backgroundColor = 'black';
+          // player_div.style.backgroundImage = `url('https://github.com/caoyanxiong/mymarble/blob/master/img/img_player_1.png?raw=true')`;
           player_div.style.marginTop = '50px';
           player_div.setAttribute('id', 'player1');
           document.querySelector('div').appendChild(player_div);
@@ -105,18 +106,35 @@
             if(nanu < 1) {
               div.style.left = `${index * 140}px`;
               div.style.backgroundColor = 'red';
+              div.innerText = city_inform[index].name;
             }else if(nanu < 2){
               div.style.left = `${4 * 140}px`;
               div.style.top = `${(index-4) * 140}px`;
               div.style.backgroundColor = 'pink';
+              div.innerText = city_inform[index].name;
             }else if(nanu < 3){
                 div.style.top = `${4 * 140}px`;
                 div.style.left = `${(4 - index % 8)* 140}px`;
                 div.style.backgroundColor = 'yellow';
+                div.innerText = city_inform[index].name;
             }else{
                 div.style.top = `${(4 - index % 12) * 140}px`;
                 div.style.backgroundColor = 'blue';
+                div.innerText = city_inform[index].name;
             }
+            if(index === 0){
+              div.style.backgroundImage=`url('https://github.com/caoyanxiong/mymarble/blob/master/img/bg_olympic.png?raw=true')`
+            }
+            if(index === 4){
+              div.style.backgroundImage=`url('https://github.com/caoyanxiong/mymarble/blob/master/img/bg_travel.png?raw=true')`;
+            }
+            if(index === 8){
+              div.style.backgroundImage=`url('https://github.com/caoyanxiong/mymarble/blob/master/img/bg_olympic.png?raw=true')`
+            }
+            if(index === 12){
+              div.style.backgroundImage=`url('https://github.com/caoyanxiong/mymarble/blob/master/img/bg_start.png?raw=true')`
+            }
+
             document.querySelector('div').appendChild(div)
         }
     )
