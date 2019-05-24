@@ -148,16 +148,16 @@
       let nanu = Math.floor(index / 4);
       if(nanu < 1){
         div.style.top = `${0}px`;
-        div.style.left = `${index * 140}px`;
+        div.style.left = `${index * 200}px`;
       }else if(nanu < 2){
-        div.style.left = `${4 * 140}px`;
-        div.style.top = `${(index-4) * 140}px`;
+        div.style.left = `${4 * 200}px`;
+        div.style.top = `${(index-4) * 200}px`;
        
       }else if(nanu < 3){
-          div.style.top = `${4 * 140}px`;
-          div.style.left = `${(4 - index % 8)* 140}px`;
+          div.style.top = `${4 * 200}px`;
+          div.style.left = `${(4 - index % 8)* 200}px`;
       }else {
-          div.style.top = `${(4 - index % 12) * 140}px`;
+          div.style.top = `${(4 - index % 12) * 200}px`;
           div.style.left = `10px`;
       }
       console.log(`${movePos}만큼 이동했습니다.`);
