@@ -20,22 +20,22 @@
   <input type="button" class="dice_button" style="position:absolute">
 <script>
     const city_inform = [
-        {name:'Seoul', price:1000, isOwned: 0, owner: ''},
-        {name:'Busan', price:1000, isOwned: 0, owner: ''},
-        {name:'Daejeon', price:1000, isOwned: 0, owner: ''},
-        {name:'Daegu', price:1000, isOwned: 0, owner: ''},
-        {name:'Gwangju', price:1000, isOwned: 0, owner: ''},
-        {name:'Ulsan', price:1000, isOwned: 0, owner: ''},
-        {name:'Jeju', price:1000, isOwned: 0, owner: ''},
-        {name:'Newyork', price:1000, isOwned: 0, owner: ''},
-        {name:'Chicago', price:1000, isOwned: 0, owner: ''},
-        {name:'Paris', price:1000, isOwned: 0, owner: ''},
-        {name:'Seoul', price:1000, isOwned: 0, owner: ''},
-        {name:'Seoul', price:1000, isOwned: 0, owner: ''},
-        {name:'Seoul', price:1000, isOwned: 0, owner: ''},
-        {name:'Seoul', price:1000, isOwned: 0, owner: ''},
-        {name:'Seoul', price:1000, isOwned: 0, owner: ''},
-        {name:'Seoul', price:1000, isOwned: 0, owner: ''}
+        {name:'Seoul', price:1000, landType: 'middle', isOwned: 0, owner: ''},
+        {name:'Busan', price:1000,  landType: 'city',isOwned: 0, owner: ''},
+        {name:'Daejeon', price:1000,  landType: 'city',isOwned: 0, owner: ''},
+        {name:'Daegu', price:1000,  landType: 'city',isOwned: 0, owner: ''},
+        {name:'Gwangju', price:1000,  landType: 'middle',isOwned: 0, owner: ''},
+        {name:'Ulsan', price:1000,  landType: 'city',isOwned: 0, owner: ''},
+        {name:'Jeju', price:1000, landType: 'city', isOwned: 0, owner: ''},
+        {name:'Newyork', price:1000,  landType: 'city',isOwned: 0, owner: ''},
+        {name:'Chicago', price:1000,  landType: 'middle',isOwned: 0, owner: ''},
+        {name:'Paris', price:1000,  landType: 'city',isOwned: 0, owner: ''},
+        {name:'Seoul', price:1000,  landType: 'city',isOwned: 0, owner: ''},
+        {name:'Seoul', price:1000, landType: 'city', isOwned: 0, owner: ''},
+        {name:'Seoul', price:1000,  landType: 'middle',isOwned: 0, owner: ''},
+        {name:'Seoul', price:1000,  landType: 'city',isOwned: 0, owner: ''},
+        {name:'Seoul', price:1000,  landType: 'city',isOwned: 0, owner: ''},
+        {name:'Seoul', price:1000,  landType: 'city',isOwned: 0, owner: ''}
     ];
      const player = {
       position:0 
@@ -48,7 +48,7 @@
     
     // 시작시 플레이어 점 그리기
     function init_player() {
-      console.log('hello world');
+
           const player_div = document.createElement('div');
           player_div.style.position = 'absolute';
           player_div.style.width = '50px';
@@ -100,20 +100,20 @@
       if(nanu < 1){
         div.style.top = `${0}px`;
         div.style.left = `${index * 140}px`;
-        console.log(document.getElementById('player1').style.top);
+     
       }else if(nanu < 2){
         div.style.left = `${4 * 140}px`;
         div.style.top = `${(index-4) * 140}px`;
-        console.log(document.getElementById('player1').style.top);
+       
       }else if(nanu < 3){
           div.style.top = `${4 * 140}px`;
           div.style.left = `${(4 - index % 8)* 140}px`;
-          console.log(document.getElementById('player1').style.top);
+    
       }else {
-          console.log(index);
+
           div.style.top = `${(4 - index % 12) * 140}px`;
           div.style.left = `10px`;
-          console.log(document.getElementById('player1').style.top);
+         
       }
       console.log(`${movePos}만큼 이동했습니다.`);
     }
@@ -121,17 +121,30 @@
     // 플레이어 이동하기
     function player_move(moveNo) {
       let currPos = player.position;
-      let movePos = (currPos + moveNo) < 17? (currPos + moveNo):(currPos + moveNo) % 16;
+      let movePos = (currPos + moveNo) < 17? (currPos + moveNo) === 16? 0: (currPos + moveNo):(currPos + moveNo) % 16;
       player.position = movePos;
       drawPlayer(movePos);
-      if(checkOwner(movePos>=16? 0 : movePos)){
-        city_inform[player.position].isOwned = 1;
-        city_inform[player.position].owner = 'player1';
+      if(checkOwner(movePos)){
+        // 땅을 사는 함수
+        if(confirm("너 살거야?")){
+          // 산다고? 그러면
+        
+          buy_city(movePos);
+        } else{
+          // 안산대? 그러면
+          
+        }
+      }else{
+        // 돈을 내! 함수
       }
     }
     function checkOwner(playerPosition) {
-      console.log(playerPosition+"::");
-      return city_inform[playerPosition].isOwned? 0 : 1;
+      if(city_inform[playerPosition].landType === 'city') return city_inform[playerPosition].isOwned? 0 : 1;
+    }
+
+    function buy_city(movePos){
+      city_inform[player.position].isOwned = 1;
+        city_inform[player.position].owner = 'player1';
     }
 
     const input = document.querySelector('input[type=button]');
