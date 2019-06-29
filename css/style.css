@@ -1,0 +1,27 @@
+.game_main {
+  width: 900px;
+  height: 900px;
+  /* background-color: bisque; */
+  background-image: URL(https://github.com/caoyanxiong/mymarble/blob/master/img/bg_stage.png?raw=true);
+  background-repeat: no-repeat;
+  text-align: center;
+}
+
+.dice_button {
+  width: 100px;
+  height: 100px;
+  background-color: aquamarine;
+  position: absolute;
+  top: 80%;
+  left: 40%;
+}
+
+.confirm_box {
+  width: 300px;
+  height: 100px;
+  background-color: brown;
+  position: absolute;
+  top: 30%;
+  left: 15%;
+  display: none;
+}
