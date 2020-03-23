@@ -1,18 +1,14 @@
 .game_main {
-  width: 900px;
-  height: 900px;
-  /* background-color: bisque; */
-  background-image: URL(https://github.com/caoyanxiong/mymarble/blob/master/img/bg_stage.png?raw=true);
-  background-repeat: no-repeat;
-  text-align: center;
+  height: 1000px;
+  background-image: URL(/img/bg_stage.png);
 }
 
 .dice_button {
-  width: 100px;
-  height: 100px;
-  background-color: aquamarine;
+  width: 10%;
+  height: 10%;
+  background-color: red;
   position: absolute;
-  top: 80%;
+  top: 40%;
   left: 40%;
 }
 
