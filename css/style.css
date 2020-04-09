@@ -1,5 +1,54 @@
 @charset "UTF-8";
 
+/* link-style */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* custom class */
+.a11yHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: polygon(0 0, 0 0, 0 0, 0 0);
+}
+
+.rs {
+  margin: 0;
+  padding: 0;
+}
+
+.rsMargin {
+  margin: 0;
+}
+
+.rsPadding {
+  padding: 0;
+}
+
+.rsBox {
+  margin: 0;
+  padding: 0;
+  border: 0 none;
+}
+
+.rsList {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.rsBtn {
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+
 .game_main {
   height: 1000px;
   background-image: URL(/img/bg_stage.png);
